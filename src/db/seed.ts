@@ -1,6 +1,6 @@
-import {reset, seed} from 'drizzle-seed'
+import { reset, seed } from 'drizzle-seed';
 import { db, sql } from './connection.ts';
-import {schema} from './schema/index.ts';
+import { schema } from './schema/index.ts';
 
 await reset(db, schema);
 
@@ -11,10 +11,13 @@ await seed(db, schema).refine((f) => {
       columns: {
         name: f.companyName(),
         description: f.loremIpsum(),
-      }
-    }
-  }
-})
+      },
+      with: {
+        questions: 5,
+      },
+    },
+  };
+});
 
 // biome-ignore lint/suspicious/noConsole: dev only
 console.log('Database seeded successfully');
